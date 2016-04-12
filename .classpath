@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_5_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.struts2.MYECLIPSE_STRUTS21_CORE"/>
+	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.hibernate.MYECLIPSE_HIBERNATE3_3_EM"/>
+	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.hibernate.MYECLIPSE_HIBERNATE3_3_CORE"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/derbyclient.jar"/>
+	<classpathentry kind="con" path="org.eclipse.datatools.connectivity.jdt.DRIVERLIBRARY/Derby Embedded JDBC Driver 10.0 Default"/>
+	<classpathentry kind="lib" path="/Users/zhang/Documents/WorkPlace/Contact/lib/mysql-connector-java-5.1.38-bin.jar"/>
+	<classpathentry kind="lib" path="/Users/zhang/Documents/WorkPlace/Contact/lib/json-lib-2.4-jdk15.jar"/>
+	<classpathentry kind="lib" path="/Users/zhang/Documents/WorkPlace/Contact/lib/commons-beanutils-1.9.2.jar"/>
+	<classpathentry kind="lib" path="/Users/zhang/Documents/WorkPlace/Contact/lib/commons-collections4-4.1.jar"/>
+	<classpathentry kind="lib" path="/Users/zhang/Documents/WorkPlace/Contact/lib/commons-lang3-3.4.jar"/>
+	<classpathentry kind="lib" path="/Users/zhang/Documents/WorkPlace/Contact/lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="/Users/zhang/Documents/WorkPlace/Contact/lib/morph-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/ezmorph-1.0.6.jar"/>
+	<classpathentry kind="lib" path="lib/poi-3.14-20160307.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-3.14-20160307.jar"/>
+	<classpathentry kind="lib" path="/Users/zhang/Documents/WorkPlace/Contact/lib/poi-examples-3.14-20160307.jar"/>
+	<classpathentry kind="lib" path="/Users/zhang/Documents/WorkPlace/Contact/lib/poi-excelant-3.14-20160307.jar"/>
+	<classpathentry kind="lib" path="/Users/zhang/Documents/WorkPlace/Contact/lib/poi-ooxml-3.14-20160307.jar"/>
+	<classpathentry kind="lib" path="/Users/zhang/Documents/WorkPlace/Contact/lib/poi-ooxml-schemas-3.14-20160307.jar"/>
+	<classpathentry kind="lib" path="/Users/zhang/Documents/WorkPlace/Contact/lib/poi-scratchpad-3.14-20160307.jar"/>
+	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
+</classpath>
