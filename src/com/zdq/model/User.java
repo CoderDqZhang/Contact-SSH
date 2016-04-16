@@ -33,7 +33,8 @@ public class User implements java.io.Serializable {
 	@EmbeddedId
 	@AttributeOverrides({
 			@AttributeOverride(name = "username", column = @Column(name = "username")),
-			@AttributeOverride(name = "password", column = @Column(name = "password")) })
+			@AttributeOverride(name = "password", column = @Column(name = "password")),
+			@AttributeOverride(name = "company", column = @Column(name = "company")) })
 	public UserId getId() {
 		return this.id;
 	}

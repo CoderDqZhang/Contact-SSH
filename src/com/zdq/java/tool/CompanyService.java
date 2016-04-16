@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.derby.impl.sql.compile.ConcatenationOperatorNode;
 import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -110,92 +111,91 @@ public class CompanyService extends BaseDao {
   
     public List<Company> read(Workbook wb)  
     {  
-  
         List<Company> dataLst = new ArrayList<Company>();  
-  
         /** 得到第一个shell */  
-  
         Sheet sheet = wb.getSheetAt(0);  
         /** 得到Excel的行数 */  
-  
         this.totalRows = sheet.getPhysicalNumberOfRows();  
-  
+        System.out.print(this.totalRows);
         /** 得到Excel的列数 */  
-  
         if (this.totalRows >= 1 && sheet.getRow(0) != null)  
         {  
-  
             this.totalCells = sheet.getRow(0).getPhysicalNumberOfCells();  
-  
         }  
-  
         /** 循环Excel的行 */  
-  
         for (int r = 1; r < this.totalRows; r++)  
         {  
-  
             Row row = sheet.getRow(r);  
-  
             if (row == null)  
             {  
-  
                 continue;  
-  
             }  
-  
             Company company= new Company();  
             CompanyId companyId = new CompanyId();
             /** 循环Excel的列 */  
-  
             for (int c = 0; c < this.getTotalCells(); c++)  
             {  
-  
                 Cell cell = row.getCell(c);  
-  
                 String cellValue = "";  
-  
                 if (null != cell)  
                 {  
                     // 以下是判断数据的类型  
                     switch (cell.getCellType())  
-                    {  
-                    
+                    {           
                     case HSSFCell.CELL_TYPE_NUMERIC: // 数字  
-                        cellValue = cell.getNumericCellValue() + "";  
-                        break;  
-  
+                    {
+                    	cellValue = "";
+                    	//若该单元格内容为数值类型，则判断是否为日期类型
+                        if(cell.getCellStyle().getDataFormatString().equals("yyyy\"年\"m\"月\";@") || HSSFDateUtil.isCellDateFormatted(cell)){                            
+                            try{
+                                //若转换发生异常，则记录下单元格的位置，并跳过该行的读取
+//                                cellValue = String.valueOf(DateStringUtil.Date2String(cell.getDateCellValue(), "yyyy-MM-dd"));
+                            }catch(Exception e){
+                            	cellValue = "";
+//                                errorMessage.append(row.getRowNum()+"行"+notnullCellIndex+"列"+"日期格式错误;");
+                                return null;
+                            }
+                        }else{
+                            try {
+                                //将数字类型转换为字符串类型，若为浮点类型数据，则去除掉小数点后的内容
+                            	cellValue = String.valueOf(cell.getNumericCellValue());
+                            }catch(Exception e){
+                                //若转换发生异常，则记录下单元格的位置，并跳过该行的读取
+                            	cellValue = "";
+//                                errorMessage.append(row.getRowNum()+"行"+notnullCellIndex+"列"+"数字格式错误;");
+                                return null;
+                            }
+                        }
+                        break; 
+                    }      
                     case HSSFCell.CELL_TYPE_STRING: // 字符串  
                         cellValue = cell.getStringCellValue();
                         try {
-							String newStr = new String(cellValue.getBytes(), "UTF-8");
-//							System.out.print(newStr);
+							String newStr = new String(cellValue.getBytes(), "utf-8");
+							System.out.print(newStr);
 						} catch (UnsupportedEncodingException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}  
-                        break;
-  
+                        break;  
                     case HSSFCell.CELL_TYPE_BOOLEAN: // Boolean  
                         cellValue = cell.getBooleanCellValue() + "";  
-                        break;  
-  
+                        break;    
                     case HSSFCell.CELL_TYPE_FORMULA: // 公式  
                         cellValue = cell.getCellFormula() + "";  
-                        break;  
-  
+                        break;    
                     case HSSFCell.CELL_TYPE_BLANK: // 空值  
                         cellValue = "";  
-                        break;  
-  
+                        break;    
                     case HSSFCell.CELL_TYPE_ERROR: // 故障  
                         cellValue = "非法字符";  
-                        break;  
-  
+                        break;    
                     default:  
                         cellValue = "未知类型";  
                         break;  
                     }  
                 }
+                System.out.print(this.totalRows);
                 switch (c) {
 				case 0:
 					companyId.setUsername(cellValue.toString());
@@ -219,6 +219,7 @@ public class CompanyService extends BaseDao {
 					companyId.setQq(cellValue.toString());	
 					break;
 				case 7:
+					cellValue = "18";
 					companyId.setAge(Integer.parseInt(cellValue.toString()));	
 					break;
 				case 8:
@@ -231,7 +232,8 @@ public class CompanyService extends BaseDao {
             company.setId(companyId);
             /** 保存第r行的第c列 */  
             dataLst.add(company);
-        }  
+        }
+        System.out.print(dataLst.size());
         return dataLst; 
     }  
 }

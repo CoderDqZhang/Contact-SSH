@@ -16,6 +16,10 @@ public class Company implements java.io.Serializable {
 
 	// Fields
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private CompanyId id;
 
 	// Constructors

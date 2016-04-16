@@ -13,6 +13,9 @@
             <key-property name="password" type="java.lang.String">
                 <column name="password" />
             </key-property>
+            <key-property name="company" type="java.lang.String">
+                <column name="company" />
+            </key-property>
         </composite-id>
     </class>
 </hibernate-mapping>

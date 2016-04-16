@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
-<struts>
-<package name="default" extends="struts-default">
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd"><struts>
+     
+<constant name="struts.i18n.encoding" value="UTF-8"/>
+        
+<package name="json" extends="struts-default,json-default" > 
         <!--在index.jsp提交submit后若登陆成功则转到adminlogin,否则转到index-->
-        <action name="userLogin" class="com.zdq.action.LoginAction">
+        <action name="userLogin" class="com.zdq.action.LoginAction" method = "json">
+            <result type="json">  
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->  
+                <param name="root">dataMap</param>  
+            </result>  
+        </action>
+        <action name="userRegister" class="com.zdq.action.RegisterAction">
             <result name="success">/success.jsp</result>
             <result name="fail">/index.jsp</result>
             <result name="input">/index.jsp</result>
@@ -12,6 +22,24 @@
             <result name="success">/success.jsp</result>
             <result name="fail">/index.jsp</result>
             <result name="input">/index.jsp</result>
+        </action>
+        <action name="getCompanyAction" class="com.zdq.action.CompanyAction" method ="getCompany">
+            <result type="json">  
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->  
+                <param name="root">dataMap</param>  
+            </result> 
+        </action>
+        <action name="getCompanyUserAction" class="com.zdq.action.CompanyAction" method ="getCompanyUser">
+            <result type="json">  
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->  
+                <param name="root">dataMap</param>  
+            </result> 
+        </action>
+        <action name="getCompanyGroup" class="com.zdq.action.CompanyAction" method ="getCompanyGroup">
+            <result type="json">  
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->  
+                <param name="root">dataMap</param>  
+            </result> 
         </action>
     </package>
 </struts>    

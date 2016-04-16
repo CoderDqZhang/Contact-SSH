@@ -12,13 +12,34 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.*;
 
 import com.sun.org.apache.xml.internal.security.Init;
+import com.zdq.java.tool.ChangeCharset;
 
 public class BaseDao implements BaseDaoIntaceface {
+
+	private ChangeCharset changeCharset;
+	
+	
 
 	private SessionFactory sessionFactory;
 	private Session session;
 	private Transaction transaction;
 	
+	public ChangeCharset getChangeCharset() {
+		return changeCharset;
+	}
+
+	public void setChangeCharset(ChangeCharset changeCharset) {
+		this.changeCharset = changeCharset;
+	}
+	
+	public Transaction getTransaction() {
+		return session.beginTransaction();
+	}
+
+	public void setTransaction(Transaction transaction) {
+		this.transaction = transaction;
+	}
+
 	public void init() {
 //		Configuration configuration = new Configuration().configure();
 		sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
@@ -47,4 +68,7 @@ public class BaseDao implements BaseDaoIntaceface {
 		return alist;
 	}
 
+	public void addCompany() {
+		
+	}
 }

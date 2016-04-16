@@ -11,6 +11,10 @@ public class CompanyId implements java.io.Serializable {
 
 	// Fields
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String username;
 	private String phone;
 	private String home;

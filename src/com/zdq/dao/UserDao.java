@@ -8,6 +8,6 @@ public interface UserDao {
 	
 	public void saveUser(User user);
 	public List<User> getAll(Class clazz);
-	public User isValidUser(String username,String password);
-	public User isValidAdmin(String username,String password);
+	public User isValidUser(String username,String password, String company);
+	public User isValidAdmin(String username,String password, String company);
 }

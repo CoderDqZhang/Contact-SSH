@@ -7,25 +7,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONObject;
-
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.zdq.dao.CompanyDao;
-import com.zdq.dao.UserDao;
 import com.zdq.dao.impl.CompanyDaoImp;
 import com.zdq.java.tool.CompanyService;
 import com.zdq.model.Company;
 
-public class UploadAction extends ActionSupport {
+public class UploadAction extends ActionSupport implements SessionAware {
 
 	/**
 	 * 
@@ -109,7 +103,7 @@ public class UploadAction extends ActionSupport {
             }
             try {
 				List<Company> company = companyService.getAllByExcel(dir+"/"+fileName);
-//				companyDao.saveCompany(company);
+				companyDao.saveCompany(company);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

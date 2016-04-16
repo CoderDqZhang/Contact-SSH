@@ -1,17 +1,14 @@
 package com.zdq.action;
 
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
-import org.apache.struts2.json.annotations.JSON;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.zdq.dao.UserDao;
@@ -19,36 +16,15 @@ import com.zdq.dao.impl.UserDaoImp;
 import com.zdq.model.User;
 import com.zdq.model.UserId;
 
-public class LoginAction extends ActionSupport implements SessionAware{
+public class RegisterAction extends ActionSupport implements SessionAware {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	UserDao dao = new UserDaoImp();
-	
-	private String key = "Just see see";
-
 	private String username;
 	private String password;
-	private String company;
-	private Map<String,Object> dataMap;
-	public Map<String, Object> getDataMap() {
-		return dataMap;
-	}
-
-	public void setDataMap(Map<String, Object> dataMap) {
-		this.dataMap = dataMap;
-	}
-	
-	public String getCompany() {
-		return company;
-	}
-
-	public void setCompany(String company) {
-		this.company = company;
-	}
-
 	private Map<String,Object> session;
 	
 	public void setSession(Map<String, Object> arg0) {
@@ -60,12 +36,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		return session;
 	}
 
-	//设置key属性不作为json的内容返回  
-    @JSON(serialize=false)  
-    public String getKey() {  
-        return key;  
-    } 
-	
 	public String getUsername() {
 		return username;
 	}
@@ -81,20 +51,34 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-  
-	
-	public String json(){
-		System.out.println(username+password+company);
-		dataMap = new HashMap<String, Object>();
-		dataMap.clear();
-		User user = dao.isValidUser(username, password,company);
+
+	public String execute() throws Exception{
+		
+		User user = new User();
+		UserId userid = new UserId();
+		userid.setUsername(username);
+		userid.setPassword(password);
+		user.setId(userid);
+//		user.getId().setUsername(username);
+//		user.getId().setPassword(password);
+		dao.saveUser(user);
+//    	User user = dao.isValidAdmin(username, password);
+    	HttpServletResponse response = ServletActionContext.getResponse();
+    	JSONObject jsonObject = new JSONObject();
+        PrintWriter out  = response.getWriter();
 		if(user!=null){
-			dataMap.put("user", user.getId());  
-	        // 放入一个是否操作成功的标识  
-	        dataMap.put("success", true);
+//    		System.out.print(user.getId().getUsername());
+    		jsonObject = JSONObject.fromObject(user.getId());
+    		System.out.print(jsonObject);
+    		out.print(jsonObject);
+    		out.flush();
+    		out.close();
     		return SUCCESS;
     	}else{
-    		dataMap.put("faile", true);
+    		jsonObject.put("code", "faile");
+    	    out.println(jsonObject); 
+    	    out.flush();
+    	    out.close();
     		return SUCCESS;
     	}  	
 	}

@@ -13,6 +13,7 @@ public class UserId implements java.io.Serializable {
 
 	private String username;
 	private String password;
+	private String company;
 
 	// Constructors
 
@@ -21,9 +22,10 @@ public class UserId implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public UserId(String username, String password) {
+	public UserId(String username, String password, String company) {
 		this.username = username;
 		this.password = password;
+		this.company = company;
 	}
 
 	// Property accessors
@@ -46,6 +48,15 @@ public class UserId implements java.io.Serializable {
 		this.password = password;
 	}
 
+	@Column(name = "company")
+	public String getCompany() {
+		return this.company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
+	}
+
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
@@ -61,7 +72,10 @@ public class UserId implements java.io.Serializable {
 				&& ((this.getPassword() == castOther.getPassword()) || (this
 						.getPassword() != null
 						&& castOther.getPassword() != null && this
-						.getPassword().equals(castOther.getPassword())));
+						.getPassword().equals(castOther.getPassword())))
+				&& ((this.getCompany() == castOther.getCompany()) || (this
+						.getCompany() != null && castOther.getCompany() != null && this
+						.getCompany().equals(castOther.getCompany())));
 	}
 
 	public int hashCode() {
@@ -71,6 +85,8 @@ public class UserId implements java.io.Serializable {
 				+ (getUsername() == null ? 0 : this.getUsername().hashCode());
 		result = 37 * result
 				+ (getPassword() == null ? 0 : this.getPassword().hashCode());
+		result = 37 * result
+				+ (getCompany() == null ? 0 : this.getCompany().hashCode());
 		return result;
 	}
 
