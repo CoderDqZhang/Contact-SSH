@@ -14,8 +14,11 @@ import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.zdq.dao.CompanyDao;
+import com.zdq.dao.UserDao;
 import com.zdq.dao.impl.CompanyDaoImp;
+import com.zdq.dao.impl.UserDaoImp;
 import com.zdq.java.tool.CompanyService;
 import com.zdq.model.Company;
 
@@ -25,7 +28,11 @@ public class UploadAction extends ActionSupport implements SessionAware {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private String password;
+	
+
 	CompanyDao companyDao = new CompanyDaoImp();
+	UserDao dao = new UserDaoImp();
 	CompanyService companyService;
 	private Map<String,Object> session;
   //上传文件存放路径   
@@ -35,7 +42,15 @@ public class UploadAction extends ActionSupport implements SessionAware {
     //上传文件名集合   
     private List<String> fileFileName;   
     //上传文件内容类型集合   
-    private List<String> fileContentType;   
+    private List<String> fileContentType;
+    public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+    
     public List<File> getFile() {   
         return file;   
     }   
@@ -103,7 +118,12 @@ public class UploadAction extends ActionSupport implements SessionAware {
             }
             try {
 				List<Company> company = companyService.getAllByExcel(dir+"/"+fileName);
+				dao.saveUser(company,password);
+
+				System.out.print("===================="+company.size());
 				companyDao.saveCompany(company);
+				System.out.print("===================="+password);
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

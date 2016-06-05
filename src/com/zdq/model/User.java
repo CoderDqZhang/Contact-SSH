@@ -1,10 +1,8 @@
 package com.zdq.model;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -16,7 +14,9 @@ public class User implements java.io.Serializable {
 
 	// Fields
 
-	private UserId id;
+	private String username;
+	private String password;
+	private String company;
 
 	// Constructors
 
@@ -25,22 +25,39 @@ public class User implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public User(UserId id) {
-		this.id = id;
+	public User(String username, String password, String company) {
+		this.username = username;
+		this.password = password;
+		this.company = company;
 	}
 
 	// Property accessors
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "username", column = @Column(name = "username")),
-			@AttributeOverride(name = "password", column = @Column(name = "password")),
-			@AttributeOverride(name = "company", column = @Column(name = "company")) })
-	public UserId getId() {
-		return this.id;
+	@Id
+	@Column(name = "username", unique = true, nullable = false)
+	public String getUsername() {
+		return this.username;
 	}
 
-	public void setId(UserId id) {
-		this.id = id;
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	@Column(name = "password", nullable = false)
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Column(name = "company", nullable = false)
+	public String getCompany() {
+		return this.company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
 	}
 
 }

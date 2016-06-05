@@ -23,9 +23,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  <input type="submit" id="queren" value="上传电话本" onclick="window.location.href='upload.jsp'">
+    <input type="submit" id="queren" value="修改个人信息" onclick="window.location.href='ChangeUser.jsp'">
+    <input type="submit" id="queren" value="获取所有联系人" onclick="window.location.href='GetCompay.jsp'">
+    <input type="submit" id="queren" value="管理界面" onclick="window.location.href='Manager.jsp'">
+    <input type="submit" id="queren" value="获取分组联系人" onclick="window.location.href='departmentGroup.jsp'">
     <span style="font-size:12px"><body>  
      <form action="uploadAction" method="post" enctype="multipart/form-data" >   
-         请选择需要上传的文件：<input type="file" id="dofile" name="file"/><br />  
+         请选择需要上传的文件：<input type="file" id="dofile" name="file"/><br />
+         员工登录密码:<input type="text" name="password"><br/>
          <input type="submit" id="btnupload" name="btnupload" value="开始上传">  
      </form>  
   </body></span>  

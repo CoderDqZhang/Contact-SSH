@@ -1,6 +1,5 @@
-<%@ page language="java" import="java.util.*"%>
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ page pageEncoding="UTF-8" %>
+<%@ page language="java" errorPage="/error.jsp" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -25,8 +24,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-   <form action="getCompanyUserAction" method = "POST">
-          公司名字:<input type="text" name="companyName"><br/>
+  <input type="submit" id="queren" value="上传电话本" onclick="window.location.href='upload.jsp'">
+    <input type="submit" id="queren" value="修改个人信息" onclick="window.location.href='ChangeUser.jsp'">
+    <input type="submit" id="queren" value="获取所有联系人" onclick="window.location.href='GetCompay.jsp'">
+    <input type="submit" id="queren" value="管理界面" onclick="window.location.href='Manager.jsp'">
+    <input type="submit" id="queren" value="获取分组联系人" onclick="window.location.href='departmentGroup.jsp'">
+  
+   <form action="getCompanyUserAction" method="post">
+          输入公司名称:<input type="text" name="companyName"><br/>
         <input type="submit" value="submit">
         <input type="reset" value="reset">
     </form>

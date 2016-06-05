@@ -1,6 +1,7 @@
 package com.zdq.action;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +15,6 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.zdq.dao.UserDao;
 import com.zdq.dao.impl.UserDaoImp;
 import com.zdq.model.User;
-import com.zdq.model.UserId;
 
 public class RegisterAction extends ActionSupport implements SessionAware {
 
@@ -25,6 +25,24 @@ public class RegisterAction extends ActionSupport implements SessionAware {
 	UserDao dao = new UserDaoImp();
 	private String username;
 	private String password;
+	private String company;
+	private Map<String,Object> dataMap;
+	public Map<String, Object> getDataMap() {
+		return dataMap;
+	}
+
+	public void setDataMap(Map<String, Object> dataMap) {
+		this.dataMap = dataMap;
+	}
+
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
+	}
+
 	private Map<String,Object> session;
 	
 	public void setSession(Map<String, Object> arg0) {
@@ -53,34 +71,18 @@ public class RegisterAction extends ActionSupport implements SessionAware {
 	}
 
 	public String execute() throws Exception{
-		
+		System.out.println(username+password+company);
+		dataMap = new HashMap<String, Object>();
+		dataMap.clear();
 		User user = new User();
-		UserId userid = new UserId();
-		userid.setUsername(username);
-		userid.setPassword(password);
-		user.setId(userid);
-//		user.getId().setUsername(username);
-//		user.getId().setPassword(password);
-		dao.saveUser(user);
-//    	User user = dao.isValidAdmin(username, password);
-    	HttpServletResponse response = ServletActionContext.getResponse();
-    	JSONObject jsonObject = new JSONObject();
-        PrintWriter out  = response.getWriter();
-		if(user!=null){
-//    		System.out.print(user.getId().getUsername());
-    		jsonObject = JSONObject.fromObject(user.getId());
-    		System.out.print(jsonObject);
-    		out.print(jsonObject);
-    		out.flush();
-    		out.close();
-    		return SUCCESS;
-    	}else{
-    		jsonObject.put("code", "faile");
-    	    out.println(jsonObject); 
-    	    out.flush();
-    	    out.close();
-    		return SUCCESS;
-    	}  	
+		user.setUsername(username);
+		user.setCompany(company);
+		user.setPassword(password);
+		String stateString = dao.save(user);
+		dataMap.put("state", stateString); 
+		return SUCCESS;
+	        // 放入一个是否操作成功的标识  
+	       
 	}
 
 }

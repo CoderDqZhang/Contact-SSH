@@ -24,7 +24,6 @@ import sun.tools.tree.ThisExpression;
 
 import com.zdq.dao.BaseDao;
 import com.zdq.model.Company;
-import com.zdq.model.CompanyId;
 import com.zdq.model.User;
 
 public class CompanyService extends BaseDao {
@@ -131,7 +130,7 @@ public class CompanyService extends BaseDao {
                 continue;  
             }  
             Company company= new Company();  
-            CompanyId companyId = new CompanyId();
+//            CompanyId companyId = new CompanyId();
             /** 循环Excel的列 */  
             for (int c = 0; c < this.getTotalCells(); c++)  
             {  
@@ -145,34 +144,42 @@ public class CompanyService extends BaseDao {
                     case HSSFCell.CELL_TYPE_NUMERIC: // 数字  
                     {
                     	cellValue = "";
+                    	
                     	//若该单元格内容为数值类型，则判断是否为日期类型
-                        if(cell.getCellStyle().getDataFormatString().equals("yyyy\"年\"m\"月\";@") || HSSFDateUtil.isCellDateFormatted(cell)){                            
-                            try{
-                                //若转换发生异常，则记录下单元格的位置，并跳过该行的读取
-//                                cellValue = String.valueOf(DateStringUtil.Date2String(cell.getDateCellValue(), "yyyy-MM-dd"));
-                            }catch(Exception e){
-                            	cellValue = "";
-//                                errorMessage.append(row.getRowNum()+"行"+notnullCellIndex+"列"+"日期格式错误;");
-                                return null;
-                            }
-                        }else{
-                            try {
-                                //将数字类型转换为字符串类型，若为浮点类型数据，则去除掉小数点后的内容
-                            	cellValue = String.valueOf(cell.getNumericCellValue());
-                            }catch(Exception e){
-                                //若转换发生异常，则记录下单元格的位置，并跳过该行的读取
-                            	cellValue = "";
-//                                errorMessage.append(row.getRowNum()+"行"+notnullCellIndex+"列"+"数字格式错误;");
-                                return null;
-                            }
-                        }
+//                       // if(cell.getCellStyle().getDataFormatString().equals("yyyy\"年\"m\"月\";@") || HSSFDateUtil.isCellDateFormatted(cell)){                            
+//                            try{
+//                                //若转换发生异常，则记录下单元格的位置，并跳过该行的读取
+////                                cellValue = String.valueOf(DateStringUtil.Date2String(cell.getDateCellValue(), "yyyy-MM-dd"));
+//                            }catch(Exception e){
+//                            	cellValue = "";
+////                                errorMessage.append(row.getRowNum()+"行"+notnullCellIndex+"列"+"日期格式错误;");
+//                                return null;
+//                            }
+                        //}else{
+                        	
+//                        	System.out.print(cellValue);
+                        	cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+                        	cellValue = cell.toString();
+//                            try {
+//                                //将数字类型转换为字符串类型，若为浮点类型数据，则去除掉小数点后的内容
+//                            	cellValue = String.valueOf(cell.getNumericCellValue());
+//                            }catch(Exception e){
+//                                //若转换发生异常，则记录下单元格的位置，并跳过该行的读取
+//                            	cellValue = "";
+////                                errorMessage.append(row.getRowNum()+"行"+notnullCellIndex+"列"+"数字格式错误;");
+//                                return null;
+//                            }
+                       // }
+//                        System.out.print(cellValue);
                         break; 
                     }      
                     case HSSFCell.CELL_TYPE_STRING: // 字符串  
+                    	
                         cellValue = cell.getStringCellValue();
+                        System.out.print(cellValue);
                         try {
-							String newStr = new String(cellValue.getBytes(), "utf-8");
-							System.out.print(newStr);
+							String newStr = new String(cellValue.getBytes(), "UTF-8");
+//							System.out.print(newStr);
 						} catch (UnsupportedEncodingException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -195,41 +202,48 @@ public class CompanyService extends BaseDao {
                         break;  
                     }  
                 }
-                System.out.print(this.totalRows);
                 switch (c) {
 				case 0:
-					companyId.setUsername(cellValue.toString());
+					company.setUsername(cellValue.toString());
 					break;
 				case 1:
-					companyId.setPhone(cellValue.toString());	
+					company.setPhone(cellValue.toString());	
 					break;
 				case 2:
-					companyId.setHome(cellValue.toString());	
+					company.setHome(cellValue.toString());	
 					break;
 				case 3:
-					companyId.setDepartment(cellValue.toString());	
+					company.setDepartment(cellValue.toString());	
 					break;
 				case 4:
-					companyId.setPosition(cellValue.toString());	
+					company.setPosition(cellValue.toString());	
 					break;
 				case 5:
-					companyId.setEmail(cellValue.toString());	
+					company.setEmail(cellValue.toString());	
 					break;
 				case 6:
-					companyId.setQq(cellValue.toString());	
+					company.setQq(cellValue.toString());	
 					break;
 				case 7:
 					cellValue = "18";
-					companyId.setAge(Integer.parseInt(cellValue.toString()));	
+					company.setAge(Integer.parseInt(cellValue.toString()));	
 					break;
 				case 8:
-					companyId.setCompany(cellValue.toString());	
+					company.setCompany(cellValue.toString());	
+					break;
+				case 9:
+					System.out.print("=========="+cellValue.toString());
+					if (cellValue.toString().equals("")){
+						
+					}else{
+						company.setSortId(Integer.parseInt(cellValue.toString()));
+					}	
 					break;
 				default:
 					break;
 				} 
             }
-            company.setId(companyId);
+//            company.setId(company);
             /** 保存第r行的第c列 */  
             dataLst.add(company);
         }

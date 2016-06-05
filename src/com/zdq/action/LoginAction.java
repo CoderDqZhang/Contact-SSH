@@ -17,7 +17,6 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.zdq.dao.UserDao;
 import com.zdq.dao.impl.UserDaoImp;
 import com.zdq.model.User;
-import com.zdq.model.UserId;
 
 public class LoginAction extends ActionSupport implements SessionAware{
 
@@ -32,6 +31,17 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	private String username;
 	private String password;
 	private String company;
+	private String newpassword;
+	
+
+	public String getNewpassword() {
+		return newpassword;
+	}
+
+	public void setNewpassword(String newpassword) {
+		this.newpassword = newpassword;
+	}
+
 	private Map<String,Object> dataMap;
 	public Map<String, Object> getDataMap() {
 		return dataMap;
@@ -83,13 +93,13 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	}
   
 	
-	public String json(){
+	public String login(){
 		System.out.println(username+password+company);
 		dataMap = new HashMap<String, Object>();
 		dataMap.clear();
 		User user = dao.isValidUser(username, password,company);
 		if(user!=null){
-			dataMap.put("user", user.getId());  
+			dataMap.put("user", user);  
 	        // 放入一个是否操作成功的标识  
 	        dataMap.put("success", true);
     		return SUCCESS;
@@ -98,5 +108,25 @@ public class LoginAction extends ActionSupport implements SessionAware{
     		return SUCCESS;
     	}  	
 	}
+	
+	public String changePassword() {
+		dataMap = new HashMap<String, Object>();
+		dataMap.clear();
+		User user = new User();
+		user.setPassword(password);
+		user.setUsername(username);
+		user.setCompany(company);
+		String stateString = dao.changePassword(user, newpassword);
+		System.out.print("========="+username+"=========="+password+"======="+newpassword+"======="+company);
+		if (stateString.equals("Success")) {
+			dataMap.put("state", "Success");
+    		return SUCCESS;
+		}else {
+			dataMap.put("state","faile");
+    		return SUCCESS;
+		}
+		
+	}
+	
 
 }

@@ -1,0 +1,7 @@
+.mb_form{ width:200px; margin:0 auto; border:1px solid #dddddd;}
+.mb_form h3{ font-size:12px; font-weight:100; margin:2px 2px 0 2px; padding:0px; width:196px; height:30px; line-height:30px; text-align:center; background:#eeeeee;border-bottom:1px solid #aaaaaa;}
+#username{border:1px solid #aaaaaa; width:150px; margin:5px 23px;}
+#phone{border:1px solid #aaaaaa; width:150px; margin:5px 23px;}
+#queren{ width:40px; height:20px; margin:5px 0 0 23px; background:#333333; color:#ffffff; text-align:center; line-height:20px; border:none; cursor:pointer;}
+#reset{width:40px; height:20px; margin:5px 0 0 0; background:#333333; color:#ffffff; text-align:center; line-height:20px; border:none; cursor:pointer;}
+.form_body{ width:196px; background:#efefef;margin:0 2px 2px 2px; padding:5px 0 15px 0; border-top:1px solid #cccccc;}

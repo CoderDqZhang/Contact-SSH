@@ -6,34 +6,36 @@
 -->
 <hibernate-mapping>
     <class name="com.zdq.model.Company" table="Company" catalog="Contact">
-        <composite-id name="id" class="com.zdq.model.CompanyId">
-            <key-property name="username" type="java.lang.String">
-                <column name="username" />
-            </key-property>
-            <key-property name="phone" type="java.lang.String">
-                <column name="phone" />
-            </key-property>
-            <key-property name="home" type="java.lang.String">
-                <column name="home" />
-            </key-property>
-            <key-property name="department" type="java.lang.String">
-                <column name="department" />
-            </key-property>
-            <key-property name="position" type="java.lang.String">
-                <column name="position" />
-            </key-property>
-            <key-property name="qq" type="java.lang.String">
-                <column name="qq" length="20" />
-            </key-property>
-            <key-property name="email" type="java.lang.String">
-                <column name="email" />
-            </key-property>
-            <key-property name="age" type="java.lang.Integer">
-                <column name="age" />
-            </key-property>
-            <key-property name="company" type="java.lang.String">
-                <column name="company" />
-            </key-property>
-        </composite-id>
+        <id name="phone" type="java.lang.String">
+            <column name="phone" />
+            <generator class="assigned" />
+        </id>
+        <property name="username" type="java.lang.String">
+            <column name="username" />
+        </property>
+        <property name="home" type="java.lang.String">
+            <column name="home" />
+        </property>
+        <property name="department" type="java.lang.String">
+            <column name="department" />
+        </property>
+        <property name="position" type="java.lang.String">
+            <column name="position" />
+        </property>
+        <property name="qq" type="java.lang.String">
+            <column name="qq" />
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="email" />
+        </property>
+        <property name="age" type="java.lang.Integer">
+            <column name="age" />
+        </property>
+        <property name="company" type="java.lang.String">
+            <column name="company" not-null="true" />
+        </property>
+        <property name="sortId" type="java.lang.Integer">
+            <column name="sortId" />
+        </property>
     </class>
 </hibernate-mapping>

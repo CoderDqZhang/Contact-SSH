@@ -14,6 +14,8 @@
 			<!-- 			jdbc:mysql://localhost:3306/Contact?useSSL=true&characterEncoding=utf8
 			-->
 		</property>
+		<property name="hibernate.jdbc.batch_size">50</property>
+		<property name="hibernate.jdbc.fetch_size">50</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password">123456</property>
 		<property name="connection.driver_class">

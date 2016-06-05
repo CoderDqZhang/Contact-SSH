@@ -6,16 +6,15 @@
 -->
 <hibernate-mapping>
     <class name="com.zdq.model.User" table="User" catalog="Contact">
-        <composite-id name="id" class="com.zdq.model.UserId">
-            <key-property name="username" type="java.lang.String">
-                <column name="username" />
-            </key-property>
-            <key-property name="password" type="java.lang.String">
-                <column name="password" />
-            </key-property>
-            <key-property name="company" type="java.lang.String">
-                <column name="company" />
-            </key-property>
-        </composite-id>
+        <id name="username" type="java.lang.String">
+            <column name="username" />
+            <generator class="assigned" />
+        </id>
+        <property name="password" type="java.lang.String">
+            <column name="password" not-null="true" />
+        </property>
+        <property name="company" type="java.lang.String">
+            <column name="company" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>
